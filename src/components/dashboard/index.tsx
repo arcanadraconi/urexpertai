@@ -1,40 +1,56 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { LogOut } from 'lucide-react';
-import { auth } from '../../lib/auth';
+import React, { useState } from 'react';
+import { Sidebar } from "./sidebar";
+import { ProfileLayout } from "../profile/ProfileLayout";
+import { ChatInterface } from "./chat-interface";
+import { ReviewPanel } from "./review-panel";
+import { MetricsLayout } from "../metrics/MetricsLayout";
+import { HelpLayout } from "../help/HelpLayout";
+import { SettingsLayout } from "../settings/SettingsLayout";
 
-export function Dashboard() {
-  const navigate = useNavigate();
+type View = 'dashboard' | 'profile' | 'reports' | 'metrics' | 'help' | 'settings';
 
-  const handleLogout = async () => {
-    try {
-      await auth.signOut();
-      navigate('/login');
-    } catch (error) {
-      console.error('Logout error:', error);
+export default function Dashboard() {
+  const [currentView, setCurrentView] = useState<View>('dashboard');
+  const [review, setReview] = useState<string>('');
+  const [isReviewReady, setIsReviewReady] = useState(false);
+
+  const handleReviewGenerated = (text: string, isReady?: boolean) => {
+    setReview(text);
+    setIsReviewReady(!!isReady);
+  };
+
+  const renderView = () => {
+    switch (currentView) {
+      case 'profile':
+        return <ProfileLayout />;
+      case 'metrics':
+        return <MetricsLayout />;
+      case 'help':
+        return <HelpLayout />;
+      case 'settings':
+        return <SettingsLayout />;
+      case 'dashboard':
+      default:
+        return (
+          <div className="flex">
+            <div className="flex-1">
+              <ChatInterface onReviewGenerated={handleReviewGenerated} />
+            </div>
+            <aside className="w-[800px]">
+              <ReviewPanel review={review} isReady={isReviewReady} />
+            </aside>
+          </div>
+        );
     }
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <header className="bg-white shadow dark:bg-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">Dashboard</h1>
-          <button
-            onClick={handleLogout}
-            className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-          >
-            <LogOut className="h-4 w-4 mr-2" />
-            Logout
-          </button>
-        </div>
-      </header>
-
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        {/* Add your dashboard content here */}
-        <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-          <p className="text-gray-600 dark:text-gray-300">Welcome to your dashboard!</p>
-        </div>
+    <div className="flex min-h-screen bg-background text-foreground">
+      <aside className="w-16 bg-[#001426] text-white">
+        <Sidebar onViewChange={setCurrentView} currentView={currentView} />
+      </aside>
+      <main className="flex-1">
+        {renderView()}
       </main>
     </div>
   );

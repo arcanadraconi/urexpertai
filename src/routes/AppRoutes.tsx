@@ -3,7 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { LoginForm } from '../components/auth/LoginForm';
 import { SignUpForm } from '../components/auth/SignUpForm';
 import { VerifyEmail } from '../components/auth/VerifyEmail';
-import { Dashboard } from '../components/dashboard';
+import Dashboard from '../components/dashboard';
 
 export function AppRoutes() {
   return (
