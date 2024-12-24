@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Base Colors */
+  --teal-dark: #035559;
+  --teal-light: #8BBFC1;
+  --black: #001426;
+  --white: #FFFFFF;
+
+  /* Theme Colors */
+  --input-bg-dark: rgba(0, 0, 0, 0.07);  /* Black at 7% */
+  --input-bg-light: rgba(3, 85, 89, 0.3); /* #035559 at 30% */
+  --nav-links: rgba(255, 255, 255, 0.55); /* White at 55% */
+  
+  /* Gradients */
+  --main-gradient: linear-gradient(90deg, var(--teal-dark) 0%, var(--teal-light) 100%);
+
+  /* Typography */
+  --font-title: 'Futura', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Nunito', sans-serif;
+}
+
+/* Dark Theme */
+[data-theme='dark'] {
+  --bg-primary: var(--teal-dark);
+  --bg-input: var(--input-bg-dark);
+  --text-primary: var(--white);
+  --text-nav: var(--nav-links);
+}
+
+/* Light Theme */
+[data-theme='light'] {
+  --bg-primary: var(--white);
+  --bg-input: var(--input-bg-light);
+  --text-primary: var(--teal-dark);
+  --text-nav: var(--teal-dark);
+}
+
+/* Base Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-title);
+  font-weight: 700;
+}
+
+body {
+  font-family: var(--font-body);
+  font-weight: 400;
+}
+
+/* Gradient Elements */
+.gradient-bg {
+  background: var(--main-gradient);
+}
+
+/* Input Styles */
+.input {
+  background-color: var(--bg-input);
+  color: var(--text-primary);
+}
+
+/* Navigation Links */
+.nav-link {
+  color: var(--text-nav);
+}

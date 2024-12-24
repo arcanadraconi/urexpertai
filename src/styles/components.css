@@ -1,0 +1,11 @@
+@tailwind components;
+
+@layer components {
+  .gradient-primary {
+    @apply bg-gradient-to-r from-[#035559] to-[#8BBFC1];
+  }
+  
+  .nav-link {
+    @apply text-white/55 dark:text-white/55 hover:text-white/80 transition-colors;
+  }
+}

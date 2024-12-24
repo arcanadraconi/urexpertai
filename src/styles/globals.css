@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600&display=swap');
+@import url('https://fonts.cdnfonts.com/css/futura-pt');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+ 
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 192 70% 18%;
+    --card: 0 0% 100%;
+    --card-foreground: 192 70% 18%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 192 70% 18%;
+    --primary: 184 94% 17%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 184 24% 65%;
+    --secondary-foreground: 192 70% 18%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 184 24% 65%;
+    --accent-foreground: 192 70% 18%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 184 24% 65%;
+    --input: 184 24% 65%;
+    --ring: 184 94% 17%;
+    --radius: 0.5rem;
+  }
+ 
+  .dark {
+    --background: 209 100% 7%;
+    --foreground: 210 40% 98%;
+    --card: 209 100% 7%;
+    --card-foreground: 210 40% 98%;
+    --popover: 209 100% 7%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 184 94% 17%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 184 24% 65%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 184 24% 65%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 184 24% 65%;
+    --input: 184 24% 65%;
+    --ring: 184 94% 17%;
+  }
+}
+ 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .gradient-primary {
+    @apply bg-gradient-to-r from-[#035559] to-[#8BBFC1];
+  }
+  
+  .nav-link {
+    @apply text-white/55 hover:text-white/80 transition-colors;
+  }
+}
