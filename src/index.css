@@ -1,3 +1,10 @@
+/* Import all style modules */
+@import './styles/fonts.css';
+@import './styles/variables.css';
+@import './styles/theme.css';
+@import './styles/globals.css';
+
+/* Tailwind Directives */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

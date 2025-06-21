@@ -1,8 +1,8 @@
-import React from 'react';
+import React from 'react'
 
 export function FeaturesPanel() {
   return (
-    <div className="hidden lg:flex lg:w-1/2 gradient-primary p-12 flex-col justify-between mx-auto text-white">
+        <div className="hidden lg:flex lg:w-1/2  p-12 flex-col justify-between mx-auto text-white">
       <nav className="flex space-x-6 mx-auto justify-center text-xl">
         <a href="#features" className="nav-link">Features</a>
         <a href="#subscription" className="nav-link">Subscription</a>
@@ -12,7 +12,7 @@ export function FeaturesPanel() {
 
       <div className="space-y-24">
         <div className="text-center">
-          <h1 className="text-7xl font-medium mb-3">
+          <h1 className="text-7xl font-medium mb-3 text-[#16a9de]">
             <span className="text-[#001426]">Revolutionizing </span>
             Healthcare
           </h1>
@@ -22,7 +22,7 @@ export function FeaturesPanel() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-6 text-md mx-auto justify-center mt-16 shadow-md rounded-lg bg-[#001426]/40 mx-8 p-8">
+        <div className="grid grid-cols-2 gap-6 text-md mx-auto justify-center mt-16 shadow-md rounded-lg bg-[#001426]/40 p-8">
           <ul className="space-y-3">
             <li>✓ Patient Review Generation</li>
             <li>✓ Dark/Light Theme Option</li>

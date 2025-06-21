@@ -1,64 +1,265 @@
-@import url('https://fonts.googleapis.com/css2?family=Questrial:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600;700&family=Questrial&display=swap');
 
 :root {
-  /* Base Colors */
-  --teal-dark: #035559;
-  --teal-light: #8BBFC1;
-  --black: #001426;
+  /* ChartExpert Brand Colors */
   --white: #FFFFFF;
-
-  /* Theme Colors */
-  --input-bg-dark: rgba(0, 0, 0, 0.07);  /* Black at 7% */
-  --input-bg-light: rgba(3, 85, 89, 0.3); /* #035559 at 30% */
-  --nav-links: rgba(255, 255, 255, 0.55); /* White at 55% */
-  
-  /* Gradients */
-  --main-gradient: linear-gradient(90deg, var(--teal-dark) 0%, var(--teal-light) 100%);
+  --lavender-web: #DCE1EF;
+  --french-gray: #CFD0DD;
+  --onyx: #3B3C48;
+  --picton-blue: #17AADF;
+  --lapis-lazuli: #225FAA;
+  --amethyst: #9B60BD;
+  --russian-violet: #382456;
+  --oxford-blue: #05072F;
 
   /* Typography */
   --font-title: 'Comfortaa', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-body: 'Questrial', sans-serif;
+  
+  /* Spacing */
+  --radius: 0.75rem;
+  
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Light Theme (Default) */
+:root {
+  --background: 0 0% 100%;
+  --foreground: 240 10% 3.9%;
+  
+  --card: 0 0% 100%;
+  --card-foreground: 240 10% 3.9%;
+  
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 10% 3.9%;
+  
+  --primary: 201 83% 49%;
+  --primary-foreground: 0 0% 98%;
+  
+  --secondary: 219 53% 39%;
+  --secondary-foreground: 0 0% 98%;
+  
+  --muted: 226 51% 91%;
+  --muted-foreground: 215 16% 47%;
+  
+  --accent: 276 40% 57%;
+  --accent-foreground: 0 0% 98%;
+  
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  
+  --border: 220 13% 91%;
+  --input: 220 13% 91%;
+  --ring: 201 83% 49%;
 }
 
 /* Dark Theme */
-[data-theme='dark'] {
-  --bg-primary: var(--teal-dark);
-  --bg-input: var(--input-bg-dark);
-  --text-primary: var(--white);
-  --text-nav: var(--nav-links);
+.dark {
+  --background: 234 89% 5%;
+  --foreground: 226 51% 91%;
+  
+  --card: 234 89% 8%;
+  --card-foreground: 226 51% 91%;
+  
+  --popover: 234 89% 8%;
+  --popover-foreground: 226 51% 91%;
+  
+  --primary: 201 83% 49%;
+  --primary-foreground: 234 89% 5%;
+  
+  --secondary: 276 40% 57%;
+  --secondary-foreground: 0 0% 98%;
+  
+  --muted: 234 39% 15%;
+  --muted-foreground: 226 51% 70%;
+  
+  --accent: 276 40% 57%;
+  --accent-foreground: 0 0% 98%;
+  
+  --destructive: 0 62% 30%;
+  --destructive-foreground: 0 0% 98%;
+  
+  --border: 234 39% 20%;
+  --input: 234 39% 20%;
+  --ring: 201 83% 49%;
 }
 
-/* Light Theme */
-[data-theme='light'] {
-  --bg-primary: var(--white);
-  --bg-input: var(--input-bg-light);
-  --text-primary: var(--teal-dark);
-  --text-nav: var(--teal-dark);
-}
-
-/* Base Typography */
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-title);
-  font-weight: 700;
+/* Base Styles */
+* {
+  border-color: hsl(var(--border));
 }
 
 body {
   font-family: var(--font-body);
   font-weight: 400;
+  transition: background-color var(--transition-normal);
 }
 
-/* Gradient Elements */
-.gradient-bg {
-  background: var(--main-gradient);
+/* Light Theme Body */
+body:not(.dark) {
+  background-color: var(--lavender-web);
+  color: var(--onyx);
+}
+
+/* Dark Theme Body */
+body.dark {
+  background: linear-gradient(to bottom right, #0f172a, #581c87, #312e81);
+  color: var(--french-gray);
+  min-height: 100vh;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-title);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* Card Styles with Glassmorphism */
+.card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all var(--transition-normal);
+}
+
+.dark .card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Glassmorphism Utilities */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.dark .glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-subtle {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .glass-subtle {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Button Styles */
+.btn-primary {
+  background-color: var(--picton-blue);
+  color: var(--white);
+  transition: all var(--transition-fast);
+}
+
+.btn-primary:hover {
+  background-color: var(--lapis-lazuli);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background-color: var(--amethyst);
+  color: var(--white);
+  transition: all var(--transition-fast);
+}
+
+.btn-secondary:hover {
+  background-color: var(--russian-violet);
+  transform: translateY(-2px);
 }
 
 /* Input Styles */
-.input {
-  background-color: var(--bg-input);
-  color: var(--text-primary);
+input, textarea, select {
+  font-family: var(--font-body);
+  transition: all var(--transition-fast);
 }
 
-/* Navigation Links */
-.nav-link {
-  color: var(--text-nav);
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Utility Classes */
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+.animate-fade-in-down {
+  animation: fadeInDown 0.5s ease-out;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
 }

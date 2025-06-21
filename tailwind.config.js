@@ -15,6 +15,18 @@ export default {
     },
     extend: {
       colors: {
+        // ChartExpert Brand Colors
+        'white': '#FFFFFF',
+        'lavender-web': '#DCE1EF',
+        'french-gray': '#CFD0DD',
+        'onyx': '#3B3C48',
+        'picton-blue': '#17AADF',
+        'lapis-lazuli': '#225FAA',
+        'amethyst': '#9B60BD',
+        'russian-violet': '#382456',
+        'oxford-blue': '#05072F',
+        
+        // Theme-based colors using CSS variables
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -52,6 +64,13 @@ export default {
       fontFamily: {
         body: ['Questrial', 'sans-serif'],
         title: ['Comfortaa', 'sans-serif'],
+        sans: ['Questrial', 'sans-serif'],
+      },
+      backgroundImage: {
+        'gradient-dark': 'linear-gradient(to bottom right, #0f172a, #581c87, #312e81)',
+      },
+      backdropBlur: {
+        xs: '2px',
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -67,10 +86,25 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: 0 },
         },
+        "fade-in": {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
+        "fade-in-up": {
+          "0%": { opacity: "0", transform: "translateY(10px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "fade-in-down": {
+          "0%": { opacity: "0", transform: "translateY(-10px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "fade-in": "fade-in 0.5s ease-out",
+        "fade-in-up": "fade-in-up 0.5s ease-out",
+        "fade-in-down": "fade-in-down 0.5s ease-out",
       },
     },
   },
