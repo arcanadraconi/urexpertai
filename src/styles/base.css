@@ -5,9 +5,9 @@
     @apply border-border;
   }
   body {
-    @apply font-[Nunito] bg-background text-foreground font-body text-base;
+    @apply font-[Questrial] bg-background text-foreground font-body text-base;
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply font-['Futura_PT'] font-normal;
+    @apply font-['Comfortaa'] font-normal;
   }
 }

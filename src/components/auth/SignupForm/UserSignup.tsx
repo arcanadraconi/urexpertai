@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '../../../lib/supabase';
+import { auth } from '../../../lib/auth';
+import { validateEmail, validatePassword } from '../../../utils/validation';
 
 interface Props {
   onHasOrgCode: () => void;
@@ -12,7 +13,7 @@ interface FormData {
   confirmPassword: string;
 }
 
-export function UserSignup({ onHasOrgCode }: Props) {
+export function UserSignup({ onHasOrgCode }: Props): JSX.Element {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -25,39 +26,30 @@ export function UserSignup({ onHasOrgCode }: Props) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!acceptedTerms) {
-      setError('Please accept the terms and conditions');
-      return;
-    }
-
-    if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
-      return;
-    }
-
     setLoading(true);
     setError(null);
 
     try {
-      // Sign up the user
-      const { data: authData, error: signUpError } = await supabase.auth.signUp({
+      // Validate inputs
+      const emailError = validateEmail(formData.email);
+      if (emailError) throw new Error(emailError);
+
+      const passwordError = validatePassword(formData.password);
+      if (passwordError) throw new Error(passwordError);
+
+      if (formData.password !== formData.confirmPassword) {
+        throw new Error('Passwords do not match');
+      }
+
+      if (!acceptedTerms) {
+        throw new Error('Please accept the terms and conditions');
+      }
+
+      await auth.signUpUser({
         email: formData.email,
         password: formData.password,
-        options: {
-          emailRedirectTo: `${window.location.origin}/verify-email`
-        }
+        confirmPassword: formData.confirmPassword
       });
-
-      if (signUpError) throw signUpError;
-      if (!authData.user) throw new Error('Signup failed');
-
-      // Set default role as clinician for individual users
-      const { error: profileError } = await supabase
-        .from('profiles')
-        .update({ role: 'clinician' })
-        .eq('id', authData.user.id);
-
-      if (profileError) throw profileError;
 
       navigate('/verify-email', { state: { email: formData.email } });
     } catch (err) {

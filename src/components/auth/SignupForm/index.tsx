@@ -12,6 +12,7 @@ interface Props {
 }
 
 export function SignupForm({ isOrganization = false }: Props) {
+  const navigate = useNavigate();
   const [hasOrgCode, setHasOrgCode] = useState(false);
 
   return (
@@ -24,13 +25,18 @@ export function SignupForm({ isOrganization = false }: Props) {
         </div>
         
         <div className="w-full max-w-md bg-[#004a4d]/15 dark:bg-white/7 rounded-xl shadow-lg p-8">
-          <div className="text-center  items-center  space-y-2">
+          <div className="text-center items-center space-y-2">
             <Logo />
             <h2 className="text-2xl font-medium">
-              {isOrganization ? 'Organization Signup' : 'Create Account'}
+              {isOrganization ? 'Create Organization' : 'Create Account'}
             </h2>
             <p className="text-sm text-muted-foreground">
-              Enter your details to get started
+              {isOrganization 
+                ? 'Set up your organization account'
+                : hasOrgCode 
+                  ? 'Join an existing organization'
+                  : 'Enter your details to get started'
+              }
             </p>
           </div>
 
@@ -39,7 +45,21 @@ export function SignupForm({ isOrganization = false }: Props) {
           ) : hasOrgCode ? (
             <OrganizationCodeSignup />
           ) : (
-            <UserSignup onHasOrgCode={() => setHasOrgCode(true)} />
+            <div>
+              <UserSignup onHasOrgCode={() => setHasOrgCode(true)} />
+              <div className="mt-4 text-center">
+                <p className="text-sm text-muted-foreground">
+                  Want to create an organization?{' '}
+                  <button
+                    onClick={() => navigate('/signup/organization')}
+                    className="text-primary hover:underline dark:text-[#8BBFC1]"
+                    type="button"
+                  >
+                    Create Organization
+                  </button>
+                </p>
+              </div>
+            </div>
           )}
         </div>
       </div>

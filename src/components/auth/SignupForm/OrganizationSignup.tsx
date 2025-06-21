@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '../../../lib/supabase';
+import { auth } from '../../../lib/auth';
 import { validateEmail, validatePassword, validateOrganizationName } from '../../../utils/validation';
-import { generate_org_code } from '../../../utils/organization';
 
 interface FormData {
   email: string;
@@ -48,22 +47,20 @@ export function OrganizationSignup() {
         throw new Error('Please accept the terms and conditions');
       }
 
-      // Create user with organization metadata
-      const { data: { user }, error: signUpError } = await supabase.auth.signUp({
+      // Create organization account
+      await auth.signUpOrganization({
         email: formData.email,
         password: formData.password,
-        options: {
-          data: {
-            organizationName: formData.organizationName.trim()
-          },
-          emailRedirectTo: `${window.location.origin}/verify-email`
-        }
+        confirmPassword: formData.confirmPassword,
+        organizationName: formData.organizationName.trim()
       });
 
-      if (signUpError) throw signUpError;
-      if (!user) throw new Error('Signup failed');
-
-      navigate('/verify-email', { state: { email: formData.email } });
+      navigate('/verify-email', { 
+        state: { 
+          email: formData.email,
+          message: 'Please check your email to verify your account. Once verified, you will receive your organization code.'
+        } 
+      });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to create account');
     } finally {

@@ -1,15 +1,19 @@
-export interface SignupFormData {
+interface BaseSignupFormData {
   email: string;
   password: string;
   confirmPassword: string;
-  organizationCodeId?: string;
 }
 
-export interface OrganizationSignupFormData {
-  email: string;
-  password: string;
-  confirmPassword: string;
+export interface UserSignupFormData extends BaseSignupFormData {}
+
+export type SignupFormData = UserSignupFormData | OrganizationSignupFormData | OrganizationCodeSignupFormData;
+
+export interface OrganizationSignupFormData extends BaseSignupFormData {
   organizationName: string;
+}
+
+export interface OrganizationCodeSignupFormData extends BaseSignupFormData {
+  organizationCode: string;
 }
 
 export interface LoginFormData {
@@ -39,5 +43,5 @@ export interface UserResponse {
   id: string;
   email: string;
   email_verified: boolean;
-  role: string;
+  role?: string;
 }

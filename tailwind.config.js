@@ -50,8 +50,8 @@ export default {
         },
       },
       fontFamily: {
-        body: ['Nunito', 'sans-serif'],
-        title: ['Futura PT', 'sans-serif'],
+        body: ['Questrial', 'sans-serif'],
+        title: ['Comfortaa', 'sans-serif'],
       },
       borderRadius: {
         lg: "var(--radius)",

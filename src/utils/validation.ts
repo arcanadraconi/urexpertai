@@ -1,4 +1,4 @@
-export function validateEmail(email: string): string | null {
+export function validateEmail(email: string): string | undefined {
   if (!email) {
     return 'Email is required';
   }
@@ -8,10 +8,24 @@ export function validateEmail(email: string): string | null {
     return 'Invalid email format';
   }
   
-  return null;
+  return undefined;
 }
 
-export function validatePassword(password: string): string | null {
+export function validateOrganizationCode(code: string): string | undefined {
+  if (!code) {
+    return 'Organization code is required';
+  }
+
+  // Check for exact format: XXXX-XXXX-XXXX-XXXX
+  const codeRegex = /^[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$/;
+  if (!codeRegex.test(code)) {
+    return 'Invalid organization code format. Must be in XXXX-XXXX-XXXX-XXXX format';
+  }
+
+  return undefined;
+}
+
+export function validatePassword(password: string): string | undefined {
   if (!password) {
     return 'Password is required';
   }
@@ -25,10 +39,10 @@ export function validatePassword(password: string): string | null {
     return 'Password must contain at least one letter and one number';
   }
   
-  return null;
+  return undefined;
 }
 
-export function validateOrganizationName(name: string): string | null {
+export function validateOrganizationName(name: string): string | undefined {
   if (!name) {
     return 'Organization name is required';
   }
@@ -46,5 +60,5 @@ export function validateOrganizationName(name: string): string | null {
     return 'Organization name can only contain letters, numbers, spaces, hyphens, underscores, and periods';
   }
 
-  return null;
+  return undefined;
 }

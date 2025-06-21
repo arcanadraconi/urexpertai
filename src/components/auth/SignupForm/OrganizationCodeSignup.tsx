@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '../../../lib/supabase';
-import { validateEmail, validatePassword } from '../../../utils/validation';
+import { auth } from '../../../lib/auth';
+import { validateEmail, validatePassword, validateOrganizationCode } from '../../../utils/validation';
 
 interface FormData {
   email: string;
@@ -51,6 +51,9 @@ export function OrganizationCodeSignup() {
       const passwordError = validatePassword(formData.password);
       if (passwordError) throw new Error(passwordError);
 
+      const codeError = validateOrganizationCode(formData.organizationCode);
+      if (codeError) throw new Error(codeError);
+
       if (formData.password !== formData.confirmPassword) {
         throw new Error('Passwords do not match');
       }
@@ -59,31 +62,12 @@ export function OrganizationCodeSignup() {
         throw new Error('Please accept the terms and conditions');
       }
 
-      // Verify organization code exists
-      const { data: orgData, error: orgError } = await supabase
-        .from('organizations')
-        .select('id')
-        .eq('code', formData.organizationCode)
-        .single();
-
-      if (orgError || !orgData) {
-        throw new Error('Invalid organization code');
-      }
-
-      // Sign up the user
-      const { data: authData, error: signUpError } = await supabase.auth.signUp({
+      await auth.signUpWithOrganizationCode({
         email: formData.email,
         password: formData.password,
-        options: {
-          data: {
-            organization_code: formData.organizationCode
-          },
-          emailRedirectTo: `${window.location.origin}/verify-email`
-        }
+        confirmPassword: formData.confirmPassword,
+        organizationCode: formData.organizationCode // Keep hyphens when sending
       });
-
-      if (signUpError) throw signUpError;
-      if (!authData.user) throw new Error('Signup failed');
 
       navigate('/verify-email', { state: { email: formData.email } });
     } catch (err) {

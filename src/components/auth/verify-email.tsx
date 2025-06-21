@@ -7,7 +7,7 @@ import { VerifyEmailContent } from './verify-email-content';
 export function VerifyEmail() {
   const { id } = useParams();
   const location = useLocation();
-  const email = location.state?.email;
+  const { email, message } = location.state || {};
 
   return (
     <div className="min-h-screen flex">
@@ -26,7 +26,7 @@ export function VerifyEmail() {
               className="h-24 w-auto"
             />
             
-            <VerifyEmailContent verificationId={id} email={email} />
+            <VerifyEmailContent verificationId={id} email={email} message={message} />
           </div>
         </div>
       </div>

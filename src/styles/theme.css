@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Questrial:wght@400;500;600;700&display=swap');
 
 :root {
   /* Base Colors */
@@ -16,8 +16,8 @@
   --main-gradient: linear-gradient(90deg, var(--teal-dark) 0%, var(--teal-light) 100%);
 
   /* Typography */
-  --font-title: 'Futura', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-body: 'Nunito', sans-serif;
+  --font-title: 'Comfortaa', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Questrial', sans-serif;
 }
 
 /* Dark Theme */

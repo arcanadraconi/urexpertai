@@ -1,24 +1,38 @@
-export interface User {
+export interface Profile {
   id: string;
   email: string;
-  created_at: string;
-  role: 'admin' | 'reviewer' | 'provider';
-}
-
-export interface Report {
-  id: string;
-  patient_id: string;
-  provider_id: string;
-  status: 'draft' | 'submitted' | 'reviewed' | 'approved' | 'rejected';
+  role: 'admin' | 'reviewer' | 'provider' | 'nurse';
+  organization_id?: string;
+  branch_id?: string;
   created_at: string;
   updated_at: string;
-  content: ReportContent;
+  organization?: Organization;
+  branch?: Branch;
 }
 
-export interface ReportContent {
-  diagnosis: string;
-  treatment_plan: string;
-  medical_necessity: string;
-  clinical_findings: string;
-  recommendations: string;
+export interface Organization {
+  id: string;
+  name: string;
+  admin_id: string;
+  code: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Branch {
+  id: string;
+  organization_id: string;
+  name: string;
+  location?: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface VerificationResult {
+  verified: boolean;
+  role: Profile['role'];
+  isOrganizationAdmin: boolean;
+  organizationCode: string | null;
+  organizationName: string | null;
+  branchName: string | null;
 }
