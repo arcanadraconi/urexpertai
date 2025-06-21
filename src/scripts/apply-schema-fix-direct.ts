@@ -12,7 +12,7 @@ const supabase = createClient(supabaseUrl, serviceRoleKey, {
   }
 });
 
-async function executeStatements(statements: string[], fileName: string) {
+async function _executeStatements(statements: string[], fileName: string) {
   console.log(`\n=== Executing ${fileName} (${statements.length} statements) ===`);
   
   for (let i = 0; i < statements.length; i++) {

@@ -27,8 +27,10 @@ export interface ProcessedReport {
     medicalNecessity: string;
     clinicalFindings: string;
     recommendations: string;
+    fullReview?: string; // Complete AI-generated review text
   };
   status: 'draft' | 'submitted' | 'reviewed' | 'approved' | 'rejected';
+  report_type?: 'manual' | 'ai_generated';
   created_at: string;
   updated_at: string;
 }

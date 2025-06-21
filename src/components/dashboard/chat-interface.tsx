@@ -6,9 +6,10 @@ import { useState } from 'react';
 import { OpenRouterService } from '../../utils/openrouter';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../../lib/supabase';
+import { reportService } from '../../lib/reportService';
 
 interface ChatInterfaceProps {
-  onReviewGenerated: (text: string, isReady?: boolean) => void;
+  onReviewGenerated: (text: string, isReady?: boolean, saved?: boolean) => void;
 }
 
 export function ChatInterface({ onReviewGenerated }: ChatInterfaceProps) {
@@ -16,6 +17,7 @@ export function ChatInterface({ onReviewGenerated }: ChatInterfaceProps) {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [_lastPatientData, setLastPatientData] = useState<string>('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,7 +35,20 @@ export function ChatInterface({ onReviewGenerated }: ChatInterfaceProps) {
       }
 
       const response = await OpenRouterService.generateReview(input);
-      onReviewGenerated(response.text, true);
+      
+      // Save the generated review to database
+      let saveSuccess = false;
+      try {
+        await reportService.saveAIGeneratedReview(input, response.text);
+        console.log('Review saved to database successfully');
+        saveSuccess = true;
+      } catch (saveError) {
+        console.error('Failed to save review to database:', saveError);
+        // Don't fail the whole operation if saving fails
+      }
+      
+      setLastPatientData(input);
+      onReviewGenerated(response.text, true, saveSuccess);
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to generate review';
       setError(message);

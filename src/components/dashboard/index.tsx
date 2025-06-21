@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Sidebar } from "./sidebar";
 import { ProfileLayout } from "../profile/ProfileLayout";
 import { ChatInterface } from "./chat-interface";
@@ -13,10 +13,12 @@ export default function Dashboard() {
   const [currentView, setCurrentView] = useState<View>('dashboard');
   const [review, setReview] = useState<string>('');
   const [isReviewReady, setIsReviewReady] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
 
-  const handleReviewGenerated = (text: string, isReady?: boolean) => {
+  const handleReviewGenerated = (text: string, isReady?: boolean, saved?: boolean) => {
     setReview(text);
     setIsReviewReady(!!isReady);
+    setIsSaved(!!saved);
   };
 
   const renderView = () => {
@@ -37,7 +39,7 @@ export default function Dashboard() {
               <ChatInterface onReviewGenerated={handleReviewGenerated} />
             </div>
             <aside className="w-[800px]">
-              <ReviewPanel review={review} isReady={isReviewReady} />
+              <ReviewPanel review={review} isReady={isReviewReady} isSaved={isSaved} />
             </aside>
           </div>
         );

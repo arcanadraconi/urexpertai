@@ -1,4 +1,3 @@
-import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { FileText } from 'lucide-react';
 import { ThemeToggle } from '../ui/theme-toggle';

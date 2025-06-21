@@ -5,13 +5,15 @@ import { useEffect, useState } from 'react';
 interface ReviewPanelProps {
   review: string;
   isReady?: boolean;
+  isSaved?: boolean;
 }
 
 export function ReviewPanel({ review, isReady }: ReviewPanelProps) {
   const [displayedText, setDisplayedText] = useState('');
   const [isEditing, setIsEditing] = useState(false);
   const [editableText, setEditableText] = useState('');
-  const [copySuccess, setCopySuccess] = useState(false);
+  const [_copySuccess, setCopySuccess] = useState(false);
+  const [_saveSuccess, _setSaveSuccess] = useState(false);
 
   useEffect(() => {
     if (!review) {
@@ -118,9 +120,6 @@ export function ReviewPanel({ review, isReady }: ReviewPanelProps) {
           {displayedText && !isEditing && (
             <div className="space-y-4 text-sm whitespace-pre-wrap">
               {displayedText.split('\n').map((line, index) => {
-                if (index === 0) {
-                  return <h1 key={index} className="text-2xl font-bold mb-6">{line}</h1>;
-                }
                 return <p key={index}>{line}</p>;
               })}
             </div>

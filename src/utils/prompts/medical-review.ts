@@ -67,4 +67,6 @@ Do not write "Patient Review" or ANY title the go straight to Date
 
   Surgery/procedure details: [content]  (If not available or provided, do not include this section)
 
-  Plan: [content]`;
+  Plan: [content]
+
+ `;

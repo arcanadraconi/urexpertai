@@ -1,4 +1,3 @@
-import React from 'react';
 
 export function FeaturesPanel() {
   return (
@@ -23,7 +22,7 @@ export function FeaturesPanel() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-6 text-md mx-auto justify-center mt-16 shadow-md rounded-lg bg-[#001426]/40 mx-8 p-8">
+          <div className="grid grid-cols-2 gap-6 text-md justify-center mt-16 shadow-md rounded-lg bg-[#001426]/40 mx-8 p-8">
             <ul className="space-y-3">
               <li className="text-white/80">✓ Patient Review Generation</li>
               <li className="text-white/80">✓ Dark/Light Theme Option</li>
